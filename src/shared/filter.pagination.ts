@@ -15,4 +15,7 @@ export class FilterPagination {
 
     @ApiProperty({ required: false, default: 'NAME', enum: ['ID', 'NAME', 'DATE'] })
     orderBy: string
+
+   
+
 }
