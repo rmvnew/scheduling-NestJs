@@ -1,0 +1,14 @@
+version: "3"
+services:
+  tad:
+    image: postgres
+    container_name: "projectPostgres"
+    environment:
+      - POSTGRES_DB=scheduling
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - TZ=GMT
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
