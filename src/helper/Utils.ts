@@ -41,16 +41,13 @@ export class Utils {
 
         currentName = currentName.replace(/\s+/g, " ")
 
-        if (this.validateUser(/[!@#$%^&*(),.?":{}|<>]/g, currentName)) {
+        if (this.validateWithRegex(/[!@#$%^&*(),.?":{}|<>]/g, currentName)) {
             throw new BadRequestException('O nome não pode conter caracteres especiais!!')
         }
 
         return currentName
     }
 
-    private validateUser(regex: RegExp, value: string): boolean {
-        return regex.test(value)
-    }
 
     async encryptPassword(pass: string): Promise<string> {
         const saltOrRounds = 10;
@@ -87,7 +84,11 @@ export class Utils {
         }
     }
 
-    vefifyDate(requestedDate:String):Date{
+    vefifyDate(requestedDate: string): Date {
+
+        if (!this.validateWithRegex(/^[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/g, requestedDate)) {
+            throw new BadRequestException(`Data informada não atende ao formato esperado dd/mm/yyyy`)
+        }
 
         const reqDate = requestedDate.split('/')
         const day = reqDate[0]
@@ -97,12 +98,16 @@ export class Utils {
         const currentDate = new Date()
         const analisedDate = new Date(`${year}-${month}-${day} 00:00:00`)
 
-        if(currentDate > analisedDate){
+        if (currentDate > analisedDate) {
             throw new BadRequestException(`Data informata é inválida ${requestedDate}`)
         }
-        
+
         return analisedDate
-        
+
+    }
+
+    private validateWithRegex(regex: RegExp, value: string): Boolean {
+        return regex.test(value)
     }
 
 

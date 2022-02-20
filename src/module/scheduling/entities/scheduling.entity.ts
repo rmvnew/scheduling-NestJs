@@ -25,6 +25,12 @@ export class Scheduling {
     fourth_period: number
 
     @Column()
+    fifth_period : number
+
+    @Column()
+    sixth_period : number
+
+    @Column()
     isActive: boolean
 
     @CreateDateColumn()

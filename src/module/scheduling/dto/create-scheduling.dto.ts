@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger"
 export class CreateSchedulingDto {
 
     @ApiProperty()
-    scheduling_date: String
+    scheduling_date: string
 
     @ApiProperty()
     scheduling_period: string
