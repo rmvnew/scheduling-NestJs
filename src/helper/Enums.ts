@@ -20,9 +20,17 @@ export enum OperationType {
 
 export enum Period{
     
-    FIRST_PERIOD = 'FIRST_PERIOD' ,
-    SECOND_PERIOD = 'SECOND_PERIOD',
-    THIRD_PERIOD = 'THIRD_PERIOD',
-    FOURTH_PERIOD = 'FOURTH_PERIOD'
+    FIRST_PERIOD = '1' ,
+    SECOND_PERIOD = '2',
+    THIRD_PERIOD = '3',
+    FOURTH_PERIOD = '4',
+    FIFTH_PERIOD = '5',
+    SIXTH_PERIOD = '6'
 
 }
+
+export enum Access{
+    UNAVAILABLE = 'UNAVAILABLE',
+    AVAILABLE = 'AVAILABLE'
+}
+

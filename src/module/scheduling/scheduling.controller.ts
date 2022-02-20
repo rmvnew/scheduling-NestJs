@@ -29,7 +29,6 @@ export class SchedulingController {
     return this.schedulingService.findAll(filter);
   }
 
-
   @Get('/available')
   async findAvailableScheduling(
     @Query() filter: FilterAvailableScheduling
