@@ -6,6 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Scheduling } from './entities/scheduling.entity';
 import { FilterScheduling } from './dto/filter.scheduling';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { FilterAvailableScheduling } from './dto/filter.available';
 
 @ApiTags("Scheduling")
 @Controller('scheduling')
@@ -26,6 +27,16 @@ export class SchedulingController {
     filter.limit = limit > 10 ? 10 : limit;
 
     return this.schedulingService.findAll(filter);
+  }
+
+
+  @Get('/available')
+  async findAvailableScheduling(
+    @Query() filter: FilterAvailableScheduling
+  ): Promise<Scheduling> {
+
+    return this.schedulingService.findAvailableScheduling(filter)
+
   }
 
 

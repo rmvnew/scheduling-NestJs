@@ -5,6 +5,7 @@ import { SortingType } from 'src/helper/Enums';
 import { Utils } from 'src/helper/Utils';
 import { Repository } from 'typeorm';
 import { CreateSchedulingDto } from './dto/create-scheduling.dto';
+import { FilterAvailableScheduling } from './dto/filter.available';
 import { FilterScheduling } from './dto/filter.scheduling';
 import { Scheduling } from './entities/scheduling.entity';
 
@@ -133,6 +134,57 @@ export class SchedulingService {
 
     return paginate<Scheduling>(queryBuilder, filter)
   }
+
+
+  async findAvailableScheduling(filter: FilterAvailableScheduling): Promise<Scheduling> {
+
+    const { date } = filter
+
+    const currentDate = Utils.getInstance().vefifyDate(date)
+
+    const saved_scheduling = await this.schedulingRepository.findOne({ scheduling_date: currentDate })
+
+    if (saved_scheduling) {
+      return {
+
+        id_scheduling: saved_scheduling.id_scheduling,
+        isActive: saved_scheduling.isActive,
+        scheduling_date: saved_scheduling.scheduling_date,
+        first_period: limit_period - saved_scheduling.first_period,
+        second_period: limit_period - saved_scheduling.second_period,
+        third_period: limit_period - saved_scheduling.third_period,
+        fourth_period: limit_period - saved_scheduling.fourth_period,
+        fifth_period: limit_period - saved_scheduling.fifth_period,
+        sixth_period: limit_period - saved_scheduling.sixth_period,
+        createAt: saved_scheduling.createAt,
+        updateAt: saved_scheduling.updateAt
+
+
+      }
+
+    }
+
+    return {
+
+      id_scheduling: null,
+      isActive: false,
+      scheduling_date: currentDate,
+      first_period: limit_period,
+      second_period: limit_period,
+      third_period: limit_period,
+      fourth_period: limit_period,
+      fifth_period: limit_period,
+      sixth_period: limit_period,
+      createAt: null,
+      updateAt: null
+
+
+    }
+
+  }
+
+
+
 
 
 }
